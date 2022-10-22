@@ -12,11 +12,6 @@ export default function TextForm(props) {
     const handleLowClick = () => {
         setText(text.toLowerCase())
     }
-
-    const handleOnChange = (event) => {
-        setText(event.target.value);
-    }
-
     const wordVal = (givenText) => {
         if (givenText === "") {
             return 0;
@@ -24,6 +19,23 @@ export default function TextForm(props) {
         else {
             return text.split(" ").length;
         }
+    }
+    const handleFunnyClick = () => {
+        setText(() => {
+            let wordArr = text.split(" ");
+            for (let word of wordArr) {
+                for (let char of word) {
+                    if (Math.ceil(Math.random() * word.length) % 2 === 0) {
+                        char = char.toUpperCase();
+                    }
+                }
+            }
+            return wordArr.join(" ");
+        });
+    }
+
+    const handleOnChange = (event) => {
+        setText(event.target.value);
     }
     
     return(
@@ -35,6 +47,7 @@ export default function TextForm(props) {
                 </div>
                 <button className="btn btn-dark mx-1" onClick={handleUpClick}>Convert to UpperCase</button>
                 <button className="btn btn-dark mx-1" onClick={handleLowClick}>Convert to LowerCase</button>
+                <button className="btn btn-dark mx-1" onClick={handleFunnyClick}>Convert to Funny Text</button>
             </div>
             <div className="container my-3">
                 <h2>Your text summary</h2>
