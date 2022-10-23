@@ -5,6 +5,7 @@ import TextForm from "./Components/TextForm";
 import Alert from "./Components/Alert";
 import About from "./Components/About";
 import {
+  BrowserRouter as Router,
   Route,
   Routes,
 } from "react-router-dom";
@@ -47,31 +48,32 @@ function App() {
       <Alert
         alert={alert}
       />
-
-      <Routes>
-        <Route 
-          exact path="/"
-          element = {
-            <div className="container my-3">
-              <TextForm 
+      <Router basename="/React-Text-Utils">
+        <Routes>
+          <Route 
+            exact path="/"
+            element = {
+              <div className="container my-3">
+                <TextForm 
+                  alert={showAlert}
+                  heading="Enter the text to be analysed below" 
+                  mode={mode}
+                />
+              </div>
+            }
+          />
+          <Route 
+            exact path="/about"
+            element = {
+              <About 
                 alert={showAlert}
-                heading="Enter the text to be analysed below" 
-                mode={mode}
+                mode={mode} 
+                toggleMode={toggleMode}
               />
-            </div>
-          }
-        />
-        <Route 
-          exact path="/about"
-          element = {
-            <About 
-              alert={showAlert}
-              mode={mode} 
-              toggleMode={toggleMode}
-            />
-          }
-        />
-      </Routes>
+            }
+          />
+        </Routes>
+      </Router>
     </>
   );
 }
