@@ -3,6 +3,11 @@ import "./App.css";
 import Nav from "./Components/NavBar";
 import TextForm from "./Components/TextForm";
 import Alert from "./Components/Alert";
+import About from "./Components/About";
+import {
+  Route,
+  Routes,
+} from "react-router-dom";
 
 function App() {
   // Check if darkmode is enabled or not
@@ -42,13 +47,31 @@ function App() {
       <Alert
         alert={alert}
       />
-      <div className="container my-3">
-        <TextForm 
-          alert={showAlert}
-          heading="Enter the text to be analysed below" 
-          mode={mode}
+
+      <Routes>
+        <Route 
+          exact path="/"
+          element = {
+            <div className="container my-3">
+              <TextForm 
+                alert={showAlert}
+                heading="Enter the text to be analysed below" 
+                mode={mode}
+              />
+            </div>
+          }
         />
-      </div>
+        <Route 
+          exact path="/about"
+          element = {
+            <About 
+              alert={showAlert}
+              mode={mode} 
+              toggleMode={toggleMode}
+            />
+          }
+        />
+      </Routes>
     </>
   );
 }
