@@ -9,10 +9,12 @@ export default function TextForm(props) {
     // Handle upper case
     const handleUpClick = () => {
         setText(text.toUpperCase())
+        props.alert("Converted to UpperCase!", "success");
     }
     // Handle lower case
     const handleLowClick = () => {
         setText(text.toLowerCase())
+        props.alert("Converted to LowerCase!", "success");
     }
     // Return length of word
     const wordVal = (givenText) => {
@@ -20,7 +22,12 @@ export default function TextForm(props) {
             return 0;
         }
         else {
-            return text.split(" ").length;
+            if (givenText.charAt(givenText.length - 1) === " ") {
+                return text.split(" ").length - 1; 
+            }
+            else {
+                return text.split(" ").length;
+            }
         }
     }
     // Handle funny text
@@ -35,10 +42,19 @@ export default function TextForm(props) {
                 return (newText.join(""));
             }
         );
+        props.alert("Converted to Funny Text!", "success");
     }
     // Handle clearing textarea
     const handleClearClick = () => {
         setText(() => "");
+        props.alert("Cleared the TextArea!", "success");
+    }
+    // Handle copying from textarea
+    const handleCopyClick = () => {
+        const myText = document.getElementById("myBox");
+        myText.select();
+        navigator.clipboard.writeText(myText.value);
+        props.alert("Copied text to clipboard!", "success");
     }
 
     const handleOnChange = (event) => {
@@ -66,6 +82,7 @@ export default function TextForm(props) {
                 <button className="btn btn-dark mx-1" onClick={handleUpClick}>Convert to UpperCase</button>
                 <button className="btn btn-dark mx-1" onClick={handleLowClick}>Convert to LowerCase</button>
                 <button className="btn btn-dark mx-1" onClick={handleFunnyClick}>Convert to Funny Text</button>
+                <button className="btn btn-dark mx-1" onClick={handleCopyClick}>Copy Text to Clipboard</button>
                 <button className="btn btn-dark mx-1" onClick={handleClearClick}>Clear Text</button>
             </div>
             <div className="container my-3" style = {{color: props.mode==='light' ? 'black' : 'white'}}>
