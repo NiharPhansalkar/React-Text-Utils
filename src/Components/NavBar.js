@@ -29,10 +29,10 @@ export default function Nav(props) {
                 <Link className="nav-link" to="/about">{props.aboutText}</Link>
               </li>
             </ul>
-          </div>
-          <div className={`form-check form-switch mx-2 text-${props.mode==='light' ? 'dark' : 'light'}`}>
-            <input className="form-check-input" type="checkbox" onClick={props.toggleMode} role="switch" id="flexSwitchCheckDefault" />
-            <label className="form-check-label" htmlFor="flexSwitchCheckDefault">Enable {props.mode==='light' ? 'Dark' : 'Light'} Mode</label>
+            <div className={`form-check form-switch mx-2 text-${props.mode==='light' ? 'dark' : 'light'}`}>
+              <input className="form-check-input" type="checkbox" onClick={props.toggleMode} role="switch" id="flexSwitchCheckDefault" />
+              <label className="form-check-label" htmlFor="flexSwitchCheckDefault">Enable {props.mode==='light' ? 'Dark' : 'Light'} Mode</label>
+            </div>
           </div>
         </div>
       </nav>

@@ -18,17 +18,7 @@ export default function TextForm(props) {
     }
     // Return length of word
     const wordVal = (givenText) => {
-        if (givenText === "") {
-            return 0;
-        }
-        else {
-            if (givenText.charAt(givenText.length - 1) === " ") {
-                return text.split(" ").length - 1; 
-            }
-            else {
-                return text.split(" ").length;
-            }
-        }
+        return text.split(" ").filter(value => value !== "").length;
     }
     // Handle funny text
     const handleFunnyClick = () => {
@@ -54,6 +44,7 @@ export default function TextForm(props) {
         const myText = document.getElementById("myBox");
         myText.select();
         navigator.clipboard.writeText(myText.value);
+        document.getSelection().removeAllRanges();
         props.alert("Copied text to clipboard!", "success");
     }
 
@@ -64,7 +55,7 @@ export default function TextForm(props) {
     return(
         <>
             <div className='container' style = {{color: props.mode==='light' ? 'black' : 'white'}}>
-                <h1>{props.heading}</h1>
+                <h1 className="mb-3">{props.heading}</h1>
                 <div className="mb-3">
                   <textarea 
                     className="form-control" 
@@ -79,18 +70,18 @@ export default function TextForm(props) {
                     }}
                 ></textarea>
                 </div>
-                <button className="btn btn-dark mx-1" onClick={handleUpClick}>Convert to UpperCase</button>
-                <button className="btn btn-dark mx-1" onClick={handleLowClick}>Convert to LowerCase</button>
-                <button className="btn btn-dark mx-1" onClick={handleFunnyClick}>Convert to Funny Text</button>
-                <button className="btn btn-dark mx-1" onClick={handleCopyClick}>Copy Text to Clipboard</button>
-                <button className="btn btn-dark mx-1" onClick={handleClearClick}>Clear Text</button>
+                <button disabled={text.split(" ").filter(value => value !== "").length === 0} className="btn btn-dark mx-1 my-1" onClick={handleUpClick}>Convert to UpperCase</button>
+                <button disabled={text.split(" ").filter(value => value !== "").length === 0} className="btn btn-dark mx-1 my-1" onClick={handleLowClick}>Convert to LowerCase</button>
+                <button disabled={text.split(" ").filter(value => value !== "").length === 0} className="btn btn-dark mx-1 my-1" onClick={handleFunnyClick}>Convert to Funny Text</button>
+                <button disabled={text.split(" ").filter(value => value !== "").length === 0} className="btn btn-dark mx-1 my-1" onClick={handleCopyClick}>Copy Text to Clipboard</button>
+                <button disabled={text.split(" ").filter(value => value !== "").length === 0} className="btn btn-dark mx-1 my-1" onClick={handleClearClick}>Clear Text</button>
             </div>
             <div className="container my-3" style = {{color: props.mode==='light' ? 'black' : 'white'}}>
                 <h2>Your text summary</h2>
                 <p><b>{wordVal(text)}</b> words and <b>{text.length}</b> characters</p>
                 <p><b>{(wordVal(text) * 0.0032).toPrecision(1)}</b> minutes read</p>
                 <h2>Preview</h2>
-                <p>{text.length > 0 ? text.slice(0, 90) : "Enter something to preview here"}</p>
+                <p>{text.length > 0 ? text.slice(0, 90) : "Nothing to preview!"}</p>
             </div>
         </>
     );
