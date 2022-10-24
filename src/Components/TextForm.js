@@ -18,7 +18,7 @@ export default function TextForm(props) {
     }
     // Return length of word
     const wordVal = (givenText) => {
-        return text.split(" ").filter(value => value !== "").length;
+        return text.split(/\s+/).filter(value => value !== "").length;
     }
     // Handle funny text
     const handleFunnyClick = () => {
@@ -41,10 +41,7 @@ export default function TextForm(props) {
     }
     // Handle copying from textarea
     const handleCopyClick = () => {
-        const myText = document.getElementById("myBox");
-        myText.select();
-        navigator.clipboard.writeText(myText.value);
-        document.getSelection().removeAllRanges();
+        navigator.clipboard.writeText(text);
         props.alert("Copied text to clipboard!", "success");
     }
 
