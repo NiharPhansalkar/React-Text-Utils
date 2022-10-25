@@ -16,6 +16,11 @@ export default function TextForm(props) {
         setText(text.toLowerCase())
         props.alert("Converted to LowerCase!", "success");
     }
+    // Handle extra spaces
+    const handleSpaceClick = () => {
+        setText(text.replace(/\s+/g, " ").trim());
+        props.alert("Extra spaces removed!", "success");
+    }
     // Return length of word
     const wordVal = (givenText) => {
         return text.split(/\s+/).filter(value => value !== "").length;
@@ -64,11 +69,14 @@ export default function TextForm(props) {
                     style = {{
                         backgroundColor: props.mode === 'dark' ? '#343a40' : 'white',
                         color: props.mode === 'light' ? 'black' : 'white',
+                        resize: "none",
+                        overflowY: "auto",
                     }}
                 ></textarea>
                 </div>
                 <button disabled={text.split(" ").filter(value => value !== "").length === 0} className="btn btn-dark mx-1 my-1" onClick={handleUpClick}>Convert to UpperCase</button>
                 <button disabled={text.split(" ").filter(value => value !== "").length === 0} className="btn btn-dark mx-1 my-1" onClick={handleLowClick}>Convert to LowerCase</button>
+                <button disabled={text.split(" ").filter(value => value !== "").length === 0} className="btn btn-dark mx-1 my-1" onClick={handleSpaceClick}>Remove Extra Spaces</button>
                 <button disabled={text.split(" ").filter(value => value !== "").length === 0} className="btn btn-dark mx-1 my-1" onClick={handleFunnyClick}>Convert to Funny Text</button>
                 <button disabled={text.split(" ").filter(value => value !== "").length === 0} className="btn btn-dark mx-1 my-1" onClick={handleCopyClick}>Copy Text to Clipboard</button>
                 <button disabled={text.split(" ").filter(value => value !== "").length === 0} className="btn btn-dark mx-1 my-1" onClick={handleClearClick}>Clear Text</button>
